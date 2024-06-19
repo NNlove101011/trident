@@ -3,5 +3,5 @@ local Window = OrionLib:MakeWindow({Name = "Example Hub (Rename This!)", HidePre
 local Tab = Window:MakeTab({ Name = "tab 1", Icon = "rbxassetid://4483345998", PremiumOnly = false }) --[[ Name = - The name of the tab. Icon = - The icon of the tab. PremiumOnly = - Makes the tab accessible to Sirus Premium users only. ]]
 local Section = Tab:AddSection({ Name = "LocalPlayer" }) --[[ Name = - The name of the section. ]]
 OrionLib:MakeNotification({ Name = "Welcome!", Content = "Welcome to my hub!", Image = "rbxassetid://4483345998", Time = 5 }) --[[ Title = - The title of the notification. Content = - The content of the notification. Image = - The icon of the notification. Time = - The duration of the notfication. ]]
-Tab:AddButton({ Name = "High Speed", Callback = function() player.Character.Humanoid.WalkSpeed = 500 end }) --[[ Name = - The name of the button. Callback = - The function of the button. ]]
+Tab:AddButton({ Name = "High Speed111", Callback = function() player.Character.Humanoid.WalkSpeed = 500 end }) --[[ Name = - The name of the button. Callback = - The function of the button. ]]
 Tab:AddButton({ Name = "High Jumppower", Callback = function() player.Character.Humanoid.JumpPower = 100 end })
