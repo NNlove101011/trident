@@ -1,7 +1,155 @@
-local player = game.Players.LocalPlayer local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
-local Window = OrionLib:MakeWindow({Name = "Example Hub (Rename This!)", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"}) --[[ Name = - The name of the UI. HidePremium = - Whether or not the user details shows Premium status or not. SaveConfig = - Toggles the config saving in the UI. ConfigFolder = - The name of the folder where the configs are saved. IntroEnabled = false - Whether or not to show the intro animation. IntroText = - Text to show in the intro animation. IntroIcon = - URL to the image you want to use in the intro animation. Icon = - URL to the image you want displayed on the window. CloseCallback = - Function to execute when the window is closed. ]]
-local Tab = Window:MakeTab({ Name = "tab 1", Icon = "rbxassetid://4483345998", PremiumOnly = false }) --[[ Name = - The name of the tab. Icon = - The icon of the tab. PremiumOnly = - Makes the tab accessible to Sirus Premium users only. ]]
-local Section = Tab:AddSection({ Name = "LocalPlayer" }) --[[ Name = - The name of the section. ]]
-OrionLib:MakeNotification({ Name = "Welcome!", Content = "Welcome to my hub!", Image = "rbxassetid://4483345998", Time = 5 }) --[[ Title = - The title of the notification. Content = - The content of the notification. Image = - The icon of the notification. Time = - The duration of the notfication. ]]
-Tab:AddButton({ Name = "High Speed111", Callback = function() player.Character.Humanoid.WalkSpeed = 500 end }) --[[ Name = - The name of the button. Callback = - The function of the button. ]]
-Tab:AddButton({ Name = "High Jumppower", Callback = function() player.Character.Humanoid.JumpPower = 100 end })
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+   Name = "🔫Trident Survival v4 | Game💥",
+   LoadingTitle = "🔫 Scrit Trident Survival v4 💥",
+   LoadingSubtitle = "sne1y",
+   ConfigurationSaving = {
+      Enabled = false,
+      FolderName = nil, -- Create a custom folder for your hub/game
+      FileName = "Example Hub"
+   },
+   Discord = {
+      Enabled = false,
+      Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
+      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+   },
+   KeySystem = true, -- Set this to true to use our key system
+   KeySettings = {
+      Title = "Key | Youtube Hub",
+      Subtitle = "Key System",
+      Note = "Key In Discord Server",
+      FileName = "YoutubeHubKey1", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+      SaveKey = false, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+      GrabKeyFromSite = true, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+      Key = {"https://github.com/NNlove101011/key.git"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+   }
+})
+
+local MainTab = Window:CreateTab("🏠 Home", nil) -- Title, Image
+local MainSection = MainTab:CreateSection("Main")
+
+Rayfield:Notify({
+   Title = "You executed the script",
+   Content = "Very cool gui",
+   Duration = 5,
+   Image = 13047715178,
+   Actions = { -- Notification Buttons
+      Ignore = {
+         Name = "Okay!",
+         Callback = function()
+         print("The user tapped Okay!")
+      end
+   },
+},
+})
+
+local Button = MainTab:CreateButton({
+   Name = "Infinite Jump Toggle",
+   Callback = function()
+       --Toggles the infinite jump between on or off on every script run
+_G.infinjump = not _G.infinjump
+
+if _G.infinJumpStarted == nil then
+	--Ensures this only runs once to save resources
+	_G.infinJumpStarted = true
+	
+	--Notifies readiness
+	game.StarterGui:SetCore("SendNotification", {Title="Youtube Hub"; Text="Infinite Jump Activated!"; Duration=5;})
+
+	--The actual infinite jump
+	local plr = game:GetService('Players').LocalPlayer
+	local m = plr:GetMouse()
+	m.KeyDown:connect(function(k)
+		if _G.infinjump then
+			if k:byte() == 32 then
+			humanoid = game:GetService'Players'.LocalPlayer.Character:FindFirstChildOfClass('Humanoid')
+			humanoid:ChangeState('Jumping')
+			wait()
+			humanoid:ChangeState('Seated')
+			end
+		end
+	end)
+end
+   end,
+})
+
+local Slider = MainTab:CreateSlider({
+   Name = "WalkSpeed Slider",
+   Range = {1, 350},
+   Increment = 1,
+   Suffix = "Speed",
+   CurrentValue = 16,
+   Flag = "sliderws", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = (Value)
+   end,
+})
+
+local Slider = MainTab:CreateSlider({
+   Name = "JumpPower Slider",
+   Range = {1, 350},
+   Increment = 1,
+   Suffix = "Speed",
+   CurrentValue = 16,
+   Flag = "sliderjp", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+        game.Players.LocalPlayer.Character.Humanoid.JumpPower = (Value)
+   end,
+})
+
+local Dropdown = MainTab:CreateDropdown({
+   Name = "Select Area",
+   Options = {"Starter World","Pirate Island","Pineapple Paradise"},
+   CurrentOption = {"Starter World"},
+   MultipleOptions = false,
+   Flag = "dropdownarea", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Option)
+        print(Option)
+   end,
+})
+
+local Input = MainTab:CreateInput({
+   Name = "Walkspeed",
+   PlaceholderText = "1-500",
+   RemoveTextAfterFocusLost = true,
+   Callback = function(Text)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = (Text)
+   end,
+})
+
+local OtherSection = MainTab:CreateSection("Other")
+
+local Toggle = MainTab:CreateToggle({
+   Name = "Auto Farm",
+   CurrentValue = false,
+   Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+        print("FARMING")
+   end,
+})
+
+local TPTab = Window:CreateTab("🏝 Teleports", nil) -- Title, Image
+
+local Button1 = TPTab:CreateButton({
+   Name = "Starter Island",
+   Callback = function()
+        --Teleport1
+   end,
+})
+
+local Button2 = TPTab:CreateButton({
+   Name = "Pirate Island",
+   Callback = function()
+        --Teleport2
+   end,
+})
+
+local Button3 = TPTab:CreateButton({
+   Name = "Pineapple Paradise",
+   Callback = function()
+        --Teleport3
+   end,
+})
+
+local TPTab = Window:CreateTab("🎲 Misc", nil) -- Title, Image
