@@ -128,28 +128,3 @@ local Toggle = MainTab:CreateToggle({
         print("FARMING")
    end,
 })
-
-local TPTab = Window:CreateTab("🏝 Teleports", nil) -- Title, Image
-
-local Button1 = TPTab:CreateButton({
-   Name = "Starter Island",
-   Callback = function()
-        --Teleport1
-   end,
-})
-
-local Button2 = TPTab:CreateButton({
-   Name = "Pirate Island",
-   Callback = function()
-        --Teleport2
-   end,
-})
-
-local Button3 = TPTab:CreateButton({
-   Name = "Pineapple Paradise",
-   Callback = function()
-        --Teleport3
-   end,
-})
-
-local TPTab = Window:CreateTab("🎲 Misc", nil) -- Title, Image
